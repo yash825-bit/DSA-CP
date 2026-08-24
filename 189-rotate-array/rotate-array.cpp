@@ -1,18 +1,11 @@
 class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
-        k = k % nums.size();
-        reverse_array(nums, 0, nums.size()-1);
-        reverse_array(nums, 0, k-1);
-        reverse_array(nums, k, nums.size()-1);
-    }
-    void reverse_array(vector<int>& arr, int fp, int sp) {
-        while(fp < sp) {
-            int temp = arr[sp];
-            arr[sp] = arr[fp];
-            arr[fp] = temp;
-            fp++;
-            sp--;
-        }
+        int n = nums.size();
+        reverse(nums.begin(), nums.end());
+        //  7, 6, 5, 4, 3, 2, 1
+        reverse(nums.begin(), nums.begin()+k%n);
+        reverse(nums.begin()+k%n, nums.end());
+
     }
 };
