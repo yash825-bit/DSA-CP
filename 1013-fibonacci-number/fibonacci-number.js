@@ -7,6 +7,7 @@ var fib = function(n) {
     if(n < 2){
         return n;
     }
+    
     let first_num = 0;
     let second_num = 1;
 
