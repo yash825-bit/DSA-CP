@@ -3,19 +3,18 @@
  * @return {number}
  */
 var fib = function(n) {
-
-    if(n < 2){
+    if(n === 0 || n === 1){
         return n;
     }
-    
-    let first_num = 0;
-    let second_num = 1;
+
+    const dp = new Array(n+1);
+
+    dp[0] = 0;
+    dp[1] = 1;
 
     for(let i = 2; i <= n; i++) {
-        let third_num = first_num + second_num;
-
-        first_num = second_num;
-        second_num = third_num;
+        dp[i] = dp[i-1]+dp[i-2];
     }
-    return second_num;
+
+    return dp[n];
 };
