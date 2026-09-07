@@ -36,6 +36,7 @@ class Solution:
 
         if firstOcc() == -1:
             return []
+            
         return list(range(firstOcc(), lastOcc()+1))
 
 
