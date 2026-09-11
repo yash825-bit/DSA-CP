@@ -1,27 +1,26 @@
 class Solution {
 public:
     int numDistinct(string s, string t) {
-        vector<vector<int>> dp(s.size(), vector<int>(t.size(), -1));
-        return solve(s, t, 0, 0, dp);
-    }
-    int solve(string s, string t, int i, int j, vector<vector<int>> &dp) {
+        vector<vector<long long>> dp(s.length()+1, vector<long long>(t.size()+1, 0));
 
-        if(j == t.size()) {
-            return 1;
+        for(int i = 0; i <= s.length(); i++) {
+            dp[i][t.length()] = 1;
         }
-        if(i == s.size()) {
-            return 0;
+        for(int i = s.length()-1; i >= 0; i--) {
+            for(int j = t.length()-1; j >= 0; j--) {
+                if(s[i] == t[j]) {
+                    if(dp[i+1][j+1] > INT_MAX - dp[i+1][j]) {
+                        dp[i][j] = INT_MAX;
+                    }
+                    else {
+                        dp[i][j] = dp[i+1][j+1] + dp[i+1][j];
+                    }
+                }
+                else {
+                    dp[i][j] = dp[i+1][j];
+                }
+            }
         }
-
-        if(dp[i][j] != -1) {
-            return dp[i][j];
-        }
-        if(s[i] == t[j]) {
-            dp[i][j] = (solve(s, t, i+1, j+1, dp) + solve(s, t, i+1, j, dp));
-        }
-        else {
-            dp[i][j] = solve(s, t, i+1, j, dp);
-        }
-        return dp[i][j];
+        return dp[0][0];
     }
 };
