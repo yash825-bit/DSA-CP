@@ -5,7 +5,7 @@ public:
 
         while(left <= right) {
             short mid = left + (right-left)/2;
-            int val = (int)matrix[mid/matrix[0].size()][mid%matrix[0].size()];
+            int val = matrix[(int)mid/matrix[0].size()][mid%matrix[0].size()];
             if(val == target)return true;
             else if(val < target){left = mid+1;}
             else {right = mid-1;}
