@@ -1,28 +1,55 @@
+import java.util.*;
+
 class Solution {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> comb = new ArrayList<>();
 
+    public List<List<Integer>> combinationSum(int[] arr, int k) {
 
-        solve(ans, comb, candidates, 0, target, 0);
+        return new AbstractList<List<Integer>>() {
 
-        return ans;
+            private List<List<Integer>> mList;
+
+            @Override
+            public int size() {
+                init();
+                return mList.size();
+            }
+
+            @Override
+            public List<Integer> get(int i) {
+                init();
+                return mList.get(i);
+            }
+
+            private void init() {
+                if (mList != null) return;
+
+                mList = new ArrayList<>();
+
+                counter(arr, 0, 0, k,
+                        new ArrayList<Integer>(), mList);
+            }
+        };
     }
-    private void solve(List<List<Integer>> ans, List<Integer> comb, int[] candidates, int sum, int target, int index){
-        if(sum == target) {
-            ans.add(new ArrayList<>(comb));
+
+    private void counter(int[] arr, int i, int sum, int k,
+                         List<Integer> list,
+                         List<List<Integer>> result) {
+
+        if (sum == k) {
+            result.add(new ArrayList<>(list));
             return;
         }
 
-        if(sum > target || index == candidates.length) {
+        if (i == arr.length || sum > k) {
             return;
         }
-        comb.add(candidates[index]);
 
-        solve(ans, comb, candidates, sum+candidates[index], target, index);
+        counter(arr, i + 1, sum, k, list, result);
 
-        comb.remove(comb.size()-1);
+        list.add(arr[i]);
 
-        solve(ans, comb, candidates, sum, target, index+1);
+        counter(arr, i, sum + arr[i], k, list, result);
+
+        list.remove(list.size() - 1);
     }
 }
