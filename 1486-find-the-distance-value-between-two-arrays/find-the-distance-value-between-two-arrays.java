@@ -4,17 +4,20 @@ class Solution {
 
         for(int i = 0; i < arr1.length; i++) {
 
-            boolean flag = true;
-
-            for(int j = 0; j < arr2.length; j++) {
-                if(Math.abs(arr1[i] - arr2[j]) <= d) {
-                    flag = false;
-                }
-            }
-            if(flag) {
+            if(isValid(arr1[i], arr2, d)) {
                 count++;
             }
         }
         return count;
+    }
+    private boolean isValid(int num, int[] arr, int d) {
+
+        for(int i = 0; i < arr.length; i++) {
+            if(Math.abs(num - arr[i]) <= d){
+                return false;
+            }
+        }
+
+        return true;
     }
 }
